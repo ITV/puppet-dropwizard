@@ -83,6 +83,7 @@ java::version: '1.8.0_51'
 
 dropwizard::instances:
   demoapp:
+    service_port: 8080
     sysconfig_hash:
       JAVA_CMD: '/usr/java/latest/jre/bin/java'
     config_hash:
@@ -93,4 +94,7 @@ dropwizard::instances:
           type: 'http'
           port: 8080
 ```
+
+This module features simple support for Consul healthchecks - if you specify `service_port` in the instance definition, a `consul::service` 
+will be registered in the name of the instance, which will check http://localhost:${service_port}/healthcheck every 15 seconds.
 

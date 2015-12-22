@@ -4,6 +4,7 @@ define dropwizard::instance (
   $version         = '0.0.1-SNAPSHOT',
   $package         = undef,
   $jar_file        = undef,
+  $service_port    = undef,
   $user            = $::dropwizard::run_user,
   $group           = $::dropwizard::run_group,
   $base_path       = $::dropwizard::base_path,
@@ -99,4 +100,15 @@ define dropwizard::instance (
     enable    => $service_enable,
     subscribe => Exec['systemctl-daemon-reload']
   }
+
+  if is_integer($service_port) {
+    consul::service { "${name}":
+      port   => $service_port,
+      checks => [{
+        http     => "http://localhost:${service_port}/healthcheck",
+        interval => '15s',
+      }]
+    }
+  }
+
 }
