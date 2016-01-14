@@ -84,6 +84,7 @@ java::version: '1.8.0_51'
 dropwizard::instances:
   demoapp:
     service_port: 8080
+    graphite_host: 'graphite.infradev.someproduct.itvcloud.zone'
     sysconfig_hash:
       JAVA_CMD: '/usr/java/latest/jre/bin/java'
     config_hash:
@@ -97,4 +98,6 @@ dropwizard::instances:
 
 This module features simple support for Consul healthchecks - if you specify `service_port` in the instance definition, a `consul::service` 
 will be registered in the name of the instance, which will check http://localhost:${service_port}/healthcheck every 15 seconds.
+
+If `service_port` AND `graphite_host` are set, metrics will be polled by logstash's `http_poller` once per minute and sent to `graphite_host` in plaintext on port `2003`
 

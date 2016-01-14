@@ -1,0 +1,10 @@
+output {
+  graphite {
+    type => 'metrics-<%= @name %>'
+    host => '<%= @graphitehost %>'
+    metrics_format => 'appmetrics.<%= @env %>.<%= @role %>.*'
+    resend_on_failure => true
+    fields_are_metrics => true
+  }
+}
+

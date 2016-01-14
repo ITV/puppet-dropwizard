@@ -5,6 +5,7 @@ define dropwizard::instance (
   $package         = undef,
   $jar_file        = undef,
   $service_port    = undef,
+  $graphite_host   = undef,
   $user            = $::dropwizard::run_user,
   $group           = $::dropwizard::run_group,
   $base_path       = $::dropwizard::base_path,
@@ -108,6 +109,16 @@ define dropwizard::instance (
         http     => "http://localhost:${service_port}/healthcheck",
         interval => '15s',
       }]
+    }
+    if is_string($graphite_host) {
+      logstash::configfile { "input_dropwizard_metrics_${name}":
+        content => template('dropwizard/logstash/input_dropwizard_metrics.erb'),
+        order => 10,
+      }
+      logstash::configfile { "output_dropwizard_metrics_${name}":
+        content => template('dropwizard/logstash/output_dropwizard_metrics.erb'),
+        order => 30,
+      }
     }
   }
 

@@ -1,0 +1,20 @@
+input {
+  http_poller {
+    type => 'metrics-<%= @name %>'
+    codec => 'json'
+    interval => 60
+    keepalive => false
+    request_timeout => 8
+    socket_timeout => 5
+    urls => {
+      metrics => {
+        url => "http://localhost:<%= @service_port %>/metrics"
+        method  => get
+        headers => {
+          Accept => "application/json"
+        }
+      }
+    }
+  }
+}
+
