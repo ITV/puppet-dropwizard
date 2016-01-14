@@ -8,7 +8,7 @@ input {
     socket_timeout => 5
     urls => {
       metrics => {
-        url => "http://localhost:<%= @service_port %>/metrics"
+        url => "http://localhost:<%= @admin_port %>/metrics"
         method  => get
         headers => {
           Accept => "application/json"

@@ -5,6 +5,7 @@ define dropwizard::instance (
   $package         = undef,
   $jar_file        = undef,
   $service_port    = undef,
+  $admin_port    = undef,
   $graphite_host   = undef,
   $user            = $::dropwizard::run_user,
   $group           = $::dropwizard::run_group,
@@ -110,6 +111,9 @@ define dropwizard::instance (
         interval => '15s',
       }]
     }
+  }
+
+  if is_integer($admin_port) {
     if is_string($graphite_host) {
       logstash::configfile { "input_dropwizard_metrics_${name}":
         content => template('dropwizard/logstash/input_dropwizard_metrics.erb'),
