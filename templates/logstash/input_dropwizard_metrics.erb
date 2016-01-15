@@ -2,7 +2,7 @@ input {
   http_poller {
     type => 'metrics-<%= @name %>'
     codec => 'json'
-    interval => 60
+    interval => 20
     keepalive => false
     request_timeout => 8
     socket_timeout => 5
