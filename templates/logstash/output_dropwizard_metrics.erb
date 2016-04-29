@@ -1,10 +1,11 @@
 output {
-  graphite {
-    type => 'metrics-<%= @name %>'
-    host => '<%= @graphite_host %>'
-    metrics_format => 'appmetrics.<%= @env %>.<%= @role %><%- if @ec2_instance_id -%>.<%= @ec2_instance_id -%><%- end -%>.*'
-    resend_on_failure => true
-    fields_are_metrics => true
-  }
+  if [type] == "metrics-<%= @name %>" {
+    graphite {
+      host => '<%= @graphite_host %>'
+      metrics_format => 'appmetrics.<%= @env %>.<%= @role %><%- if @ec2_instance_id -%>.<%= @ec2_instance_id -%><%- end -%>.*'
+      resend_on_failure => true
+      fields_are_metrics => true
+    }
+  } 
 }
 
