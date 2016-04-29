@@ -18,3 +18,9 @@ input {
   }
 }
 
+# ES 2.x does not support dots in field names
+filter {
+  if [type] == "metrics-<%= @name %>" {
+    de_dot {}
+  }
+}
