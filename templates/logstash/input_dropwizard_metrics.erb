@@ -1,20 +1,7 @@
 input {
-  http_poller {
-    type => 'metrics-<%= @name %>'
-    codec => 'json'
-    interval => 20
-    keepalive => false
-    request_timeout => 8
-    socket_timeout => 5
-    urls => {
-      metrics => {
-        url => "http://localhost:<%= @admin_port %>/metrics"
-        method  => get
-        headers => {
-          Accept => "application/json"
-        }
-      }
-    }
+  graphite {
+    port => 2003
+    type => "metrics-<%= @name %>"
   }
 }
 
