@@ -10,6 +10,7 @@ EnvironmentFile=-/etc/sysconfig/dropwizard_<%= @name %>
 ExecStart=/bin/sh -c '${JAVA_CMD} ${JAVA_OPTS} -jar <%= @_jar_file %> server "<%= @_config_files.join(',') %>"'
 Restart=on-failure
 RestartSec=30s
+TimeoutSec=20s
 
 [Install]
 WantedBy=multi-user.target
