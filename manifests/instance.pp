@@ -5,6 +5,7 @@ define dropwizard::instance (
   $package         = undef,
   $jar_file        = undef,
   $service_port    = undef,
+  $service_check_port = $service_port,
   $service_check_postfix = 'healthcheck',
   $admin_port    = undef,
   $graphite_host   = undef,
@@ -108,7 +109,7 @@ define dropwizard::instance (
     consul::service { "${name}":
       port   => $service_port,
       checks => [{
-          http     => "http://localhost:${service_port}/${service_check_postfix}",
+          http     => "http://localhost:${service_check_port}/${service_check_postfix}",
           interval => '15s',
       }]
     }
