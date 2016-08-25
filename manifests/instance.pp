@@ -96,6 +96,8 @@ define dropwizard::instance (
       /present/ => 'running',
       /absent/  => 'stopped',
     }
+  } else {
+    $_service_ensure = $service_ensure
   }
 
   if $service_enable == undef {
@@ -103,6 +105,8 @@ define dropwizard::instance (
       /present/ => true,
       /absent/  => false,
     }
+  } else {
+    $_service_enable = $service_enable
   }
 
   service { "dropwizard_${name}":
