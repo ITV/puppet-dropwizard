@@ -1,6 +1,8 @@
 # Define: dropwizard::instance
 define dropwizard::instance (
   $ensure          = 'present',
+  $service_enable  = undef,
+  $service_ensure  = undef,
   $version         = '0.0.1-SNAPSHOT',
   $package         = undef,
   $jar_file        = undef,
@@ -89,14 +91,18 @@ define dropwizard::instance (
     notify  => Exec['systemctl-daemon-reload']
   }
 
-  $service_ensure = $ensure ? {
-    /present/ => 'running',
-    /absent/  => 'stopped',
+  if $service_ensure == undef {
+    $service_ensure = $ensure ? {
+      /present/ => 'running',
+      /absent/  => 'stopped',
+    }
   }
 
-  $service_enable = $ensure ? {
-    /present/ => true,
-    /absent/  => false,
+  if $service_enable == undef {
+    $service_enable = $ensure ? {
+      /present/ => true,
+      /absent/  => false,
+    }
   }
 
   service { "dropwizard_${name}":
