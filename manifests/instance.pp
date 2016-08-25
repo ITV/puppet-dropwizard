@@ -92,22 +92,22 @@ define dropwizard::instance (
   }
 
   if $service_ensure == undef {
-    $service_ensure = $ensure ? {
+    $_service_ensure = $ensure ? {
       /present/ => 'running',
       /absent/  => 'stopped',
     }
   }
 
   if $service_enable == undef {
-    $service_enable = $ensure ? {
+    $_service_enable = $ensure ? {
       /present/ => true,
       /absent/  => false,
     }
   }
 
   service { "dropwizard_${name}":
-    ensure    => $service_ensure,
-    enable    => $service_enable,
+    ensure    => $_service_ensure,
+    enable    => $_service_enable,
     subscribe => Exec['systemctl-daemon-reload']
   }
 
