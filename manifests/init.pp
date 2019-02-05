@@ -31,6 +31,7 @@ class dropwizard (
   $run_uid        = $::dropwizard::params::run_uid,
   $run_group      = $::dropwizard::params::run_group,
   $run_gid        = $::dropwizard::params::run_gid,
+  $java_version   = $::dropwizard::params::java_version,
   $instances      = {},
 ) inherits dropwizard::params {
 

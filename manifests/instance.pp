@@ -4,6 +4,7 @@ define dropwizard::instance (
   $version         = '0.0.1-SNAPSHOT',
   $package         = undef,
   $jar_file        = undef,
+  $java_version    = undef,
   $sysconfig       = {},
   $user            = $::dropwizard::run_user,
   $group           = $::dropwizard::run_group,
@@ -56,6 +57,15 @@ define dropwizard::instance (
     $_jar_file = "${base_path}/${name}/${name}-${version}.jar"
   } else {
     $_jar_file = $jar_file
+  }
+
+  # Assign default java version
+  if $java_version == undef {
+    $_java_version = "/usr/lib/jvm/jre-1.8.0/bin/java"
+  } elsif $java_version == 8 {
+    $_java_version = "/usr/lib/jvm/jre-1.8.0/bin/java"
+  } else {
+    $_java_version = "/usr/lib/jvm/jre-11/bin/java"
   }
 
   file { "/lib/systemd/system/dropwizard_${name}.service":
