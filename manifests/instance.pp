@@ -4,6 +4,7 @@ define dropwizard::instance (
   $version         = '0.0.1-SNAPSHOT',
   $package         = undef,
   $jar_file        = undef,
+  $java_version    = undef,
   $sysconfig       = {},
   $user            = $::dropwizard::run_user,
   $group           = $::dropwizard::run_group,
