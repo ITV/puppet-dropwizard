@@ -72,6 +72,12 @@ define dropwizard::instance (
     $_jar_file = $jar_file
   }
 
+  if $java_version == "11" {
+    $_java_version = "/usr/lib/jvm/jre-11/bin/java"
+  } else {
+    $_java_version = "/usr/lib/jvm/jre-1.8.0/bin/java"
+  }
+
   file { "/usr/lib/systemd/system/dropwizard_${name}.service":
     ensure  => $file_ensure,
     owner   => 'root',
